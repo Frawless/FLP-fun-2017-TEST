@@ -10,7 +10,7 @@ red='\033[1;31m'
 green='\033[1;32m'
 NC='\033[0m'
 
-INPUT=input/*
+INPUT=input/test
 OUTPUT=output/output
 REF=ref_out/ref_out
 
@@ -39,19 +39,18 @@ if [[ $? -ne 0 ]] ; then
 fi
 
 # Testování
-i=1
-for file in ${INPUT}
+x=$(ls input/ -1 | wc -l)	# Počet testů
+for ((i=1; i <= x; i++))
 do
-	./rv-2-rka -t $file > ${OUTPUT}$i
+	./rv-2-rka -t ${INPUT}$i > ${OUTPUT}$i
 	diff -u ${REF}$i ${OUTPUT}$i > diff/diff$i
 	if [ $? = 0 ]
 		then
-			echo -e "${green}Test ${i} PASS! -> in: $(cat $file)"
+			echo -e "${green}Test ${i} PASS! -> in: $(cat ${INPUT}$i)"
 		else
-			echo -e "${red}Test ${i} FAIL -> in: $(cat $file) - check diff/diff$i"
+			echo -e "${red}Test ${i} FAIL -> in: $(cat ${INPUT}$i) - check diff/diff$i"
 		fi
 		echo -e "${NC}----------------------"
-	i=i+1
 done
 
 # Progress bar

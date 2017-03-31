@@ -2,3 +2,17 @@
 Makefile
 
 rv-2-rka\.hs
+
+*.o
+
+*.hi
+
+diff/
+
+output/
+
+rv-2-rka
+
+Parser/
+
+Type/
